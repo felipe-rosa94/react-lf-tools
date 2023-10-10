@@ -6,9 +6,20 @@ const removeAccents = string => string.normalize('NFD').replace(/[\u0300-\u036f]
 
 const cleanTextToNumbers = string => string.replace(/[^\d]+/g, '').trim()
 
+const isDebug = () => {
+    let debug = true
+    try {
+        debug = (window.location.host === 'localhost:3000')
+    } catch (e) {
+      console.log('outside the react js environment')
+    }
+    return debug
+}
+
 module.exports = {
     test,
     isObjectEmpty,
     removeAccents,
-    cleanTextToNumbers
+    cleanTextToNumbers,
+    isDebug
 }
