@@ -1,5 +1,5 @@
 const test = (text) => {
-    console.log(text)
+    console.log('test:', text)
 }
 
 module.exports = {
