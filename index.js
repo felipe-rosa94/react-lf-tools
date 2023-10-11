@@ -5,11 +5,15 @@ const removeAccents = string => string.normalize('NFD').replace(/[\u0300-\u036f]
 const cleanTextToNumbers = string => string.replace(/[^\d]+/g, '').trim()
 
 const showData = data => {
-    if (data) {
-        data = data.split('').reverse().join('')
-        data = decodeURIComponent(escape(atob(data)))
-        data = JSON.parse(data)
-        return data
+    try {
+        if (data) {
+            data = data.split('').reverse().join('')
+            data = decodeURIComponent(escape(Buffer.from(data, 'base64').toString('utf-8')))
+            data = JSON.parse(data)
+            return data
+        }
+    } catch (e) {
+        console.error(e.message)
     }
 }
 
@@ -17,7 +21,8 @@ const hideData = data => {
     try {
         if (data) {
             data = JSON.stringify(data)
-            data = btoa(unescape(encodeURIComponent(data)))
+            data = Buffer.from(unescape(encodeURIComponent(data))).toString('base64')
+            //  data = btoa(unescape(encodeURIComponent(data)))
             data = data.split('').reverse().join('')
             data = data.replaceAll('=', '')
             return data
@@ -202,7 +207,7 @@ const maskDate = data => {
     return v
 }
 
-const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 
 module.exports = {
     test,
