@@ -6,11 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "zip code checker",
-    "cpf checker",
-    "cnpj checker"
-  ],
+  "keywords": [],
   "author": "Luis Felipe Da Rosa Cardoso",
   "license": "ISC",
   "dependencies": {
