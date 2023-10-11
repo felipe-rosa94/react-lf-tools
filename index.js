@@ -1,4 +1,26 @@
+const axios = require('axios')
+
+const getAddress = async cep => {
+    try {
+        const r = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        return r.data
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
 const test = text => console.log(text)
+
+const randomNumber = (size = 10) => {
+    try {
+        const date = new Date()
+        const a = (Math.pow(date.getMilliseconds(), 4))
+        const b = Math.floor(Math.random() * Math.pow(size, size))
+        return (a + b).toString().substring(0, size)
+    } catch (e) {
+        console.error(e.message)
+    }
+}
 
 const removeAccents = string => string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
@@ -22,157 +44,175 @@ const hideData = data => {
         if (data) {
             data = JSON.stringify(data)
             data = Buffer.from(unescape(encodeURIComponent(data))).toString('base64')
-            //  data = btoa(unescape(encodeURIComponent(data)))
             data = data.split('').reverse().join('')
             data = data.replaceAll('=', '')
             return data
         }
     } catch (e) {
-
+        console.error(e.message)
     }
 }
 
 const isPassword = password => {
-    let letrasMaiusculas = /[A-Z]/
-    let letrasMinusculas = /[a-z]/
-    let numeros = /[0-9]/
-    let caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/
-    let auxMaiuscula = 0
-    let auxMinuscula = 0
-    let auxNumero = 0
-    let auxEspecial = 0
-    for (let i = 0; i < password.length; i++) {
-        if (letrasMaiusculas.test(password[i]))
-            auxMaiuscula++
-        else if (letrasMinusculas.test(password[i]))
-            auxMinuscula++
-        else if (numeros.test(password[i]))
-            auxNumero++
-        else if (caracteresEspeciais.test(password[i]))
-            auxEspecial++
+    try {
+        let letrasMaiusculas = /[A-Z]/
+        let letrasMinusculas = /[a-z]/
+        let numeros = /[0-9]/
+        let caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/
+        let auxMaiuscula = 0
+        let auxMinuscula = 0
+        let auxNumero = 0
+        let auxEspecial = 0
+        for (let i = 0; i < password.length; i++) {
+            if (letrasMaiusculas.test(password[i]))
+                auxMaiuscula++
+            else if (letrasMinusculas.test(password[i]))
+                auxMinuscula++
+            else if (numeros.test(password[i]))
+                auxNumero++
+            else if (caracteresEspeciais.test(password[i]))
+                auxEspecial++
+        }
+        if (auxMaiuscula <= 0) return 'Senha de ter uma letra maiúscula'
+        if (auxMinuscula <= 0) return 'Senha de ter uma letra minuscula'
+        if (auxEspecial <= 0) return 'Senha de ter um carácter especial'
+        if (auxNumero <= 0) return 'Senha de ter um número'
+        if (password.length < 8) return 'Menos de 8 digitos'
+        return true
+    } catch (e) {
+        console.error(e.message)
     }
-    if (auxMaiuscula <= 0) return 'Senha de ter uma letra maiúscula'
-    if (auxMinuscula <= 0) return 'Senha de ter uma letra minuscula'
-    if (auxEspecial <= 0) return 'Senha de ter um carácter especial'
-    if (auxNumero <= 0) return 'Senha de ter um número'
-    if (password.length < 8) return 'Menos de 8 digitos'
-    return true
 }
 
 const isPhone = (phone) => {
-    if (typeof phone != 'string')
-        phone = phone.toString()
-    phone = phone.replace(/\D/g, '')
-    const valid = phone.match(/^((5{2})?(\d{2})?([987])?(\d{4})(\d{4}))$/)
-    return valid
+    try {
+        if (typeof phone != 'string')
+            phone = phone.toString()
+        phone = phone.replace(/\D/g, '')
+        const valid = phone.match(/^((5{2})?(\d{2})?([987])?(\d{4})(\d{4}))$/)
+        return valid
+    } catch (e) {
+        console.error(e.message)
+    }
 }
 
 const isObjectEmpty = object => object && Object.keys(object).length === 0 && Object.getPrototypeOf(object) === Object.prototype
 
 const isDebug = () => {
-    let debug = true
     try {
-        debug = (window.location.host === 'localhost:3000')
+        return (window.location.host === 'localhost:3000')
     } catch (e) {
-        console.log('outside the react js environment')
+
     }
-    return debug
+    return false
 }
 
 const isEmail = email => {
-    if (email === '' || !email.includes("@")) return false
-    const user = email.substring(0, email.indexOf("@"))
-    const domain = email.substring(email.indexOf("@") + 1, email.length)
-    return ((user.length >= 1)
-        && (domain.length >= 3)
-        && (user.search("@") === -1)
-        && (domain.search("@") === -1)
-        && (user.search(" ") === -1)
-        && (domain.search(" ") === -1)
-        && (domain.search(".") !== -1)
-        && (domain.indexOf(".") >= 1)
-        && (domain.lastIndexOf(".") < domain.length - 1))
+    try {
+        if (email === '' || !email.includes("@")) return false
+        const user = email.substring(0, email.indexOf("@"))
+        const domain = email.substring(email.indexOf("@") + 1, email.length)
+        return ((user.length >= 1)
+            && (domain.length >= 3)
+            && (user.search("@") === -1)
+            && (domain.search("@") === -1)
+            && (user.search(" ") === -1)
+            && (domain.search(" ") === -1)
+            && (domain.search(".") !== -1)
+            && (domain.indexOf(".") >= 1)
+            && (domain.lastIndexOf(".") < domain.length - 1))
+    } catch (e) {
+        console.error(e.message)
+    }
 }
 
 const isCPF = cpf => {
-    cpf = cpf.replace(/[^\d]+/g, '')
-    if (cpf === '') return false
-    if (cpf.length !== 11 ||
-        cpf === '00000000000' ||
-        cpf === '11111111111' ||
-        cpf === '22222222222' ||
-        cpf === '33333333333' ||
-        cpf === '44444444444' ||
-        cpf === '55555555555' ||
-        cpf === '66666666666' ||
-        cpf === '77777777777' ||
-        cpf === '88888888888' ||
-        cpf === '99999999999')
-        return false
-    let add = 0
-    let rev
-    for (let i = 0; i < 9; i++)
-        add += parseInt(cpf.charAt(i)) * (10 - i)
-    rev = 11 - (add % 11)
-    if (rev === 10 || rev === 11)
-        rev = 0
-    if (rev !== parseInt(cpf.charAt(9)))
-        return false
-    add = 0
-    for (let i = 0; i < 10; i++)
-        add += parseInt(cpf.charAt(i)) * (11 - i)
-    rev = 11 - (add % 11)
-    if (rev === 10 || rev === 11)
-        rev = 0
-    if (rev !== parseInt(cpf.charAt(10)))
-        return false
-    return true
+    try {
+        cpf = cpf.replace(/[^\d]+/g, '')
+        if (cpf === '') return false
+        if (cpf.length !== 11 ||
+            cpf === '00000000000' ||
+            cpf === '11111111111' ||
+            cpf === '22222222222' ||
+            cpf === '33333333333' ||
+            cpf === '44444444444' ||
+            cpf === '55555555555' ||
+            cpf === '66666666666' ||
+            cpf === '77777777777' ||
+            cpf === '88888888888' ||
+            cpf === '99999999999')
+            return false
+        let add = 0
+        let rev
+        for (let i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i)
+        rev = 11 - (add % 11)
+        if (rev === 10 || rev === 11)
+            rev = 0
+        if (rev !== parseInt(cpf.charAt(9)))
+            return false
+        add = 0
+        for (let i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i)
+        rev = 11 - (add % 11)
+        if (rev === 10 || rev === 11)
+            rev = 0
+        if (rev !== parseInt(cpf.charAt(10)))
+            return false
+        return true
+    } catch (e) {
+        console.error(e.message)
+    }
 }
 
 const isCNPJ = cnpj => {
-    /* eslint-disable */
-    cnpj = cnpj.replace(/[^\d]+/g, '')
-    if (cnpj === '') return false
-    if (cnpj.length !== 14)
-        return false
-    if (cnpj === '00000000000000' ||
-        cnpj === '11111111111111' ||
-        cnpj === '22222222222222' ||
-        cnpj === '33333333333333' ||
-        cnpj === '44444444444444' ||
-        cnpj === '55555555555555' ||
-        cnpj === '66666666666666' ||
-        cnpj === '77777777777777' ||
-        cnpj === '88888888888888' ||
-        cnpj === '99999999999999')
-        return false;
-    let tamanho = cnpj.length - 2
-    let numeros = cnpj.substring(0, tamanho);
-    let digitos = cnpj.substring(tamanho);
-    let soma = 0;
-    let pos = tamanho - 7;
-    for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2)
-            pos = 9;
+    try {
+        /* eslint-disable */
+        cnpj = cnpj.replace(/[^\d]+/g, '')
+        if (cnpj === '') return false
+        if (cnpj.length !== 14)
+            return false
+        if (cnpj === '00000000000000' ||
+            cnpj === '11111111111111' ||
+            cnpj === '22222222222222' ||
+            cnpj === '33333333333333' ||
+            cnpj === '44444444444444' ||
+            cnpj === '55555555555555' ||
+            cnpj === '66666666666666' ||
+            cnpj === '77777777777777' ||
+            cnpj === '88888888888888' ||
+            cnpj === '99999999999999')
+            return false;
+        let tamanho = cnpj.length - 2
+        let numeros = cnpj.substring(0, tamanho);
+        let digitos = cnpj.substring(tamanho);
+        let soma = 0;
+        let pos = tamanho - 7;
+        for (let i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(0))
+            return false;
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (let i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(1))
+            return false;
+        return true;
+        /* eslint-enable */
+    } catch (e) {
+        console.error(e.message)
     }
-    let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(0))
-        return false;
-    tamanho = tamanho + 1;
-    numeros = cnpj.substring(0, tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2)
-            pos = 9;
-    }
-    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(1))
-        return false;
-    return true;
-    /* eslint-enable */
 }
 
 const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -210,7 +250,9 @@ const maskDate = data => {
 const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 
 module.exports = {
+    getAddress,
     test,
+    randomNumber,
     removeAccents,
     cleanTextToNumbers,
     showData,
