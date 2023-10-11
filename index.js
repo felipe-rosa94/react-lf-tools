@@ -1,16 +1,15 @@
-const axios = require('axios')
-
-const getAddress = cep => {
+getAddress = cep => {
     try {
         return new Promise((resolve, reject) => {
-            axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then((response) => response.json())
                 .then(response => {
-                    resolve(response.data);
+                    resolve(response)
                 })
                 .catch(error => {
-                    reject(error);
-                });
-        });
+                    reject(error)
+                })
+        })
     } catch (e) {
         console.error(e.message)
     }
