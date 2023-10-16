@@ -1,3 +1,30 @@
+const formattedDate = (d = '') => {
+    try {
+        const date = (!!d) ? new Date(d) : new Date()
+        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+    } catch (e) {
+
+    }
+}
+
+const formattedTime = (d = '') => {
+    try {
+        const date = (!!d) ? new Date(d) : new Date()
+        return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+    } catch (e) {
+
+    }
+}
+
+const formattedDateTime = (d = '') => {
+    try {
+        const date = (!!d) ? new Date(d) : new Date()
+        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+    } catch (e) {
+
+    }
+}
+
 const addItemFromJson = (json, nameItem, value) => {
     try {
         json[nameItem] = value
@@ -82,7 +109,6 @@ const hideData = data => {
     }
 }
 
-
 const isTrue = (value = '') => {
     try {
         if (value !== null)
@@ -130,8 +156,7 @@ const isPhone = (phone) => {
         if (typeof phone != 'string')
             phone = phone.toString()
         phone = phone.replace(/\D/g, '')
-        const valid = phone.match(/^((5{2})?(\d{2})?([987])?(\d{4})(\d{4}))$/)
-        return valid
+        return phone.match(/^((5{2})?(\d{2})?([987])?(\d{4})(\d{4}))$/)
     } catch (e) {
         console.error(e.message)
     }
@@ -283,9 +308,7 @@ const isMobile = () => {
     return check
 }
 
-const isNumber = (value) => {
-    return typeof value === 'number' && isFinite(value)
-}
+const isNumber = value => typeof value === 'number' && isFinite(value)
 
 const maskPhone = phone => {
     if (phone !== '') {
@@ -308,6 +331,9 @@ const maskDate = data => {
 const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 
 module.exports = {
+    formattedDate,
+    formattedTime,
+    formattedDateTime,
     addItemFromJson,
     deleteItemFromJson,
     fileToBase64,

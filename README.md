@@ -3,6 +3,9 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 
 ### Funções
 
+-   `formattedDate` - Obtém a data formatada.
+-   `formattedTime` - Obtém hora formatada.
+-   `formattedDateTime` - Obtém data e hora formatada.
 -   `addItemFromJson` - Adiciona item ao JSON e retorna.
 -   `deleteItemFromJson` - Remove item no JSON e retorna.
 -   `fileToBase64` - Converte um arquivo em Base64.
@@ -16,7 +19,7 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 -   `isPhone` - Verifica se é um telefone válido.
 -   `isEmpty` - Verifica se valor passado é vazio, podendo ser (Array, Object ou String).
 -   `isObjectEmpty` - Verifica se o objeto está vazio.
--   `isDebug` - Verifica se o React está em localhost.
+-   `isDebug` - Verifica se o React está em localhost, por padrão na porta 3000, mas pode ser passada a porta ultilizada.
 -   `isEmail` - Verifica se é um e-mail válido.
 -   `isCPF` - Verifica se é um CPF válido.
 -   `isCNPJ` - Verifica se é um CNPJ válido.
