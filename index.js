@@ -1,4 +1,29 @@
-getAddress = cep => {
+const addItemFromJson = (json, nameItem, value) => {
+    try {
+        json[nameItem] = value
+        return json
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
+const deleteItemFromJson = (json, nameItem) => {
+    try {
+        delete json[nameItem]
+        return json
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
+const fileToBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = error => reject(error)
+})
+
+const getAddressFromCep = cep => {
     try {
         return new Promise((resolve, reject) => {
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
@@ -14,8 +39,6 @@ getAddress = cep => {
         console.error(e.message)
     }
 }
-
-const test = text => console.log(text)
 
 const randomNumber = (size = 10) => {
     try {
@@ -57,6 +80,18 @@ const hideData = data => {
     } catch (e) {
         console.error(e.message)
     }
+}
+
+
+const isTrue = (value = '') => {
+    try {
+        if (value !== null)
+            value = value.trim()
+        return ((!!value) && (value !== 'null') && (value !== 'undefined'))
+    } catch (e) {
+        console.error(e.message)
+    }
+    return false
 }
 
 const isPassword = password => {
@@ -102,11 +137,28 @@ const isPhone = (phone) => {
     }
 }
 
-const isObjectEmpty = object => object && Object.keys(object).length === 0 && Object.getPrototypeOf(object) === Object.prototype
+const isObjectEmpty = object => {
+    if (Array.isArray(object))
+        return object.length === 0
+    else
+        return object && Object.keys(object).length === 0 && Object.getPrototypeOf(object) === Object.prototype
+}
 
-const isDebug = () => {
+const isEmpty = value => {
     try {
-        return (window.location.host === 'localhost:3000')
+        if (typeof value === 'object')
+            return isObjectEmpty(value)
+        else
+            return (value === 'null' || value === null || value === 'undefined' || value === undefined || value === '')
+    } catch (e) {
+        console.error(e.message)
+    }
+    return true
+}
+
+const isDebug = (port = '3000') => {
+    try {
+        return (window.location.host === `localhost:${port}`)
     } catch (e) {
 
     }
@@ -115,18 +167,18 @@ const isDebug = () => {
 
 const isEmail = email => {
     try {
-        if (email === '' || !email.includes("@")) return false
-        const user = email.substring(0, email.indexOf("@"))
-        const domain = email.substring(email.indexOf("@") + 1, email.length)
+        if (email === '' || !email.includes('@')) return false
+        const user = email.substring(0, email.indexOf('@'))
+        const domain = email.substring(email.indexOf('@') + 1, email.length)
         return ((user.length >= 1)
             && (domain.length >= 3)
-            && (user.search("@") === -1)
-            && (domain.search("@") === -1)
-            && (user.search(" ") === -1)
-            && (domain.search(" ") === -1)
-            && (domain.search(".") !== -1)
-            && (domain.indexOf(".") >= 1)
-            && (domain.lastIndexOf(".") < domain.length - 1))
+            && (user.search('@') === -1)
+            && (domain.search('@') === -1)
+            && (user.search(' ') === -1)
+            && (domain.search(' ') === -1)
+            && (domain.search('.') !== -1)
+            && (domain.indexOf('.') >= 1)
+            && (domain.lastIndexOf('.') < domain.length - 1))
     } catch (e) {
         console.error(e.message)
     }
@@ -256,15 +308,19 @@ const maskDate = data => {
 const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 
 module.exports = {
-    getAddress,
-    test,
+    addItemFromJson,
+    deleteItemFromJson,
+    fileToBase64,
+    getAddressFromCep,
     randomNumber,
     removeAccents,
     cleanTextToNumbers,
     showData,
     hideData,
+    isTrue,
     isPassword,
     isPhone,
+    isEmpty,
     isObjectEmpty,
     isDebug,
     isEmail,
