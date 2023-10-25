@@ -4,7 +4,7 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 ### Funções
 
 -   `formattedDate` - Obtém a data formatada.
--   `formattedTime` - Obtém hora formatada.
+-   `formattedTime` - Obtém a hora formatada.
 -   `formattedDateTime` - Obtém data e hora formatada.
 -   `addItemFromJson` - Adiciona item ao JSON e retorna.
 -   `deleteItemFromJson` - Remove item no JSON e retorna.

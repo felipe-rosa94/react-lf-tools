@@ -3,7 +3,7 @@ const formattedDate = (d = '') => {
         const date = (!!d) ? new Date(d) : new Date()
         return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     } catch (e) {
-
+        console.error(e.message)
     }
 }
 
@@ -12,7 +12,7 @@ const formattedTime = (d = '') => {
         const date = (!!d) ? new Date(d) : new Date()
         return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
     } catch (e) {
-
+        console.error(e.message)
     }
 }
 
@@ -21,7 +21,7 @@ const formattedDateTime = (d = '') => {
         const date = (!!d) ? new Date(d) : new Date()
         return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
     } catch (e) {
-
+        console.error(e.message)
     }
 }
 
@@ -109,7 +109,7 @@ const hideData = data => {
     }
 }
 
-const isTrue = (value = '') => {
+const isTrue = value  => {
     try {
         if (value !== null)
             value = value.trim()
@@ -171,10 +171,11 @@ const isObjectEmpty = object => {
 
 const isEmpty = value => {
     try {
-        if (typeof value === 'object')
+        if (value === 'null' || value === null || value === 'undefined' || value === undefined || value === '') {
+            return true
+        } else if (typeof value === 'object') {
             return isObjectEmpty(value)
-        else
-            return (value === 'null' || value === null || value === 'undefined' || value === undefined || value === '')
+        }
     } catch (e) {
         console.error(e.message)
     }
