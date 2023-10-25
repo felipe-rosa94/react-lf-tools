@@ -175,6 +175,8 @@ const isEmpty = value => {
             return true
         } else if (typeof value === 'object') {
             return isObjectEmpty(value)
+        } else {
+            return false
         }
     } catch (e) {
         console.error(e.message)
