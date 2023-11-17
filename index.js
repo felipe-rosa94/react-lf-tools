@@ -86,7 +86,11 @@ const showData = data => {
     try {
         if (data) {
             data = data.split('').reverse().join('')
-            data = decodeURIComponent(escape(Buffer.from(data, 'base64').toString('utf-8')))
+            try {
+                data = decodeURIComponent(escape(Buffer.from(data, 'base64').toString('utf-8')))
+            } catch (e) {
+                data = decodeURIComponent(escape(atob(data)))
+            }
             data = JSON.parse(data)
             return data
         }
@@ -99,7 +103,11 @@ const hideData = data => {
     try {
         if (data) {
             data = JSON.stringify(data)
-            data = Buffer.from(unescape(encodeURIComponent(data))).toString('base64')
+            try {
+                data = Buffer.from(unescape(encodeURIComponent(data))).toString('base64')
+            } catch (e) {
+                data = btoa(unescape(encodeURIComponent(data)))
+            }
             data = data.split('').reverse().join('')
             data = data.replaceAll('=', '')
             return data
@@ -109,7 +117,7 @@ const hideData = data => {
     }
 }
 
-const isTrue = value  => {
+const isTrue = value => {
     try {
         if (value !== null)
             value = value.trim()
