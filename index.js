@@ -78,6 +78,15 @@ const randomNumber = (size = 10) => {
     }
 }
 
+const randomLetters = (size = 10) => {
+    const letters = 'qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM'
+    let result = ''
+    for (let i = 0; i < size; i++) {
+        result += letters.charAt(Math.floor(Math.random() * letters.length))
+    }
+    return result
+}
+
 const removeAccents = string => string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
 const cleanTextToNumbers = string => string.replace(/[^\d]+/g, '').trim()
@@ -341,6 +350,14 @@ const maskDate = data => {
 
 const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 
+const apiRequest = async ({url, init}) => {
+    try {
+        return await fetch(url, init).then((data) => data.json()).catch((error) => (error))
+    } catch (e) {
+
+    }
+}
+
 module.exports = {
     formattedDate,
     formattedTime,
@@ -350,6 +367,7 @@ module.exports = {
     fileToBase64,
     getAddressFromCep,
     randomNumber,
+    randomLetters,
     removeAccents,
     cleanTextToNumbers,
     showData,
@@ -368,5 +386,6 @@ module.exports = {
     isNumber,
     maskPhone,
     maskDate,
-    maskCPF
+    maskCPF,
+    apiRequest
 }
