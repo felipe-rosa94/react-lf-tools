@@ -1,7 +1,7 @@
 const formattedDate = (d = '') => {
     try {
         const date = (!!d) ? new Date(d) : new Date()
-        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        return date.getDate().toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getFullYear()
     } catch (e) {
         console.error(e.message)
     }
@@ -10,7 +10,7 @@ const formattedDate = (d = '') => {
 const formattedTime = (d = '') => {
     try {
         const date = (!!d) ? new Date(d) : new Date()
-        return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+        return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + ':' + date.getSeconds().toString().padStart(2, '0')
     } catch (e) {
         console.error(e.message)
     }
