@@ -91,6 +91,12 @@ const removeAccents = string => string.normalize('NFD').replace(/[\u0300-\u036f]
 
 const cleanTextToNumbers = string => string.replace(/[^\d]+/g, '').trim()
 
+const clearText = text => {
+    text = text.normalize('NFD').replace(/[^A-Z0-9]/ig, '')
+    text = text.trim()
+    return text.toLowerCase()
+}
+
 const showData = data => {
     try {
         if (data) {
@@ -370,6 +376,7 @@ module.exports = {
     randomLetters,
     removeAccents,
     cleanTextToNumbers,
+    clearText,
     showData,
     hideData,
     isTrue,
