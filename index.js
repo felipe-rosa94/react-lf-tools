@@ -132,6 +132,15 @@ const hideData = data => {
     }
 }
 
+const checkUndefined = (value, valueDefault = '') => {
+    try {
+        if ((typeof value !== 'undefined') && (value !== null)) return value
+    } catch (e) {
+
+    }
+    return valueDefault
+}
+
 const isTrue = value => {
     try {
         if (value !== null)
@@ -379,6 +388,7 @@ module.exports = {
     clearText,
     showData,
     hideData,
+    checkUndefined,
     isTrue,
     isPassword,
     isPhone,

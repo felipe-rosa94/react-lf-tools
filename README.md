@@ -12,8 +12,10 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 -   `getAddressFromCep` - Retorna o endereço pelo Cep passado, o metodo deve ser assíncrono.
 -   `randomNumber` - Gera um número aleatório, podendo escolher o tamanho do número.
 -   `cleanTextToNumbers` - Remove todos os caracteres que não são números e retorna.
+-   `clearText` - Remove todos os caracteres especiais incluindo espaços e retorna tudo em minúsculo.
 -   `showData` - Ofusca o valor passado e retorna.
 -   `hideData` - Desofusca o valor passado e retorna.
+-   `checkUndefined` - Verifica se o valor passado é diferente de undefined ou null, se for retorna ou uma string vazia ou um valor passado.
 -   `isTrue` - Verifica se o valor é verdadeiro.
 -   `isPassword` - Verifica se é uma senha válida com padrão forte, contendo letras maiúsculas, minúsculas, números e caracteres especiais.
 -   `isPhone` - Verifica se é um telefone válido.
