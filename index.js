@@ -132,56 +132,6 @@ const hideData = data => {
     }
 }
 
-const smoothScrolling = (id, time, top = 50) => {
-    try {
-        id = clearText(id)
-        const target = document.getElementById(id)
-        const elem = document.scrollingElement || document.documentElement
-        const style = 'scrollTop'
-        const unit = ''
-        const from = window.scrollY
-        const prop = true
-        const to = ((target.offsetTop) - top)
-        const distance = Math.abs(to - from)
-        switch (true) {
-            case distance < 250:
-                time = 350
-                break
-            case distance < 500:
-                time = 300
-                break
-            case distance < 750:
-                time = 250
-                break
-            case distance < 1000:
-                time = 200
-                break
-            default:
-                time = 50
-        }
-        if (!elem) return
-        let start = new Date().getTime(),
-            timer = setInterval(function () {
-                let step = Math.min(1, (new Date().getTime() - start) / time)
-                if (prop) {
-                    elem[style] = (from + step * (to - from)) + unit
-                } else {
-                    elem.style[style] = (from + step * (to - from)) + unit
-                }
-                if (step === 1) {
-                    clearInterval(timer)
-                }
-            }, 25);
-        if (prop) {
-            elem[style] = from + unit
-        } else {
-            elem.style[style] = from + unit
-        }
-    } catch (e) {
-
-    }
-}
-
 const checkUndefined = (value, valueDefault = '') => {
     try {
         if ((typeof value !== 'undefined') && (value !== null)) return value
@@ -438,7 +388,6 @@ module.exports = {
     clearText,
     showData,
     hideData,
-    smoothScrolling,
     checkUndefined,
     isTrue,
     isPassword,
