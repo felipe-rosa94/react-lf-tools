@@ -363,7 +363,18 @@ const maskDate = (data, format = '/') => {
     return v
 }
 
-const maskCPF = cpf => cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+const maskCPF = cpf_cnpj => maskCPF_CNPJ(cpf_cnpj)
+
+const maskCPF_CNPJ = cpf_cnpj => {
+    cpf_cnpj = cleanTextToNumbers(cpf_cnpj)
+    if (cpf_cnpj.length > 11) {
+        return cpf_cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+    } else {
+        return cpf_cnpj.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    }
+}
+
+const maskCEP = cep => cep.replace(/(\d{5})(\d{3})/, "$1-$2")
 
 const apiRequest = async ({url, init}) => {
     try {
@@ -404,5 +415,7 @@ module.exports = {
     maskPhone,
     maskDate,
     maskCPF,
+    maskCPF_CNPJ,
+    maskCEP,
     apiRequest
 }

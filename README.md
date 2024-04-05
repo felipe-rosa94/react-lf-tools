@@ -31,3 +31,5 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 -   `maskPhone` - Cria uma máscara de telefone.
 -   `maskDate` - Cria uma máscara de data.
 -   `maskCPF` - Cria uma máscara de CPF.
+-   `maskCPF_CNPJ` - Cria uma máscara de CPF e CNPJ.
+-   `maskCEP` - Cria uma máscara de CEP.
