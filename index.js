@@ -141,6 +141,15 @@ const checkUndefined = (value, valueDefault = '') => {
     return valueDefault
 }
 
+const isJson = (string) => {
+    try {
+        JSON.parse(string)
+    } catch (e) {
+        return false
+    }
+    return true
+}
+
 const isTrue = value => {
     try {
         if (value !== null)
@@ -384,15 +393,6 @@ const apiRequest = async ({url, init}) => {
     }
 }
 
-Object.defineProperty(String.prototype, 'capitalize', {
-    value: function () {
-        return this.charAt(0).toUpperCase() + this.slice(1)
-    },
-    enumerable: false
-})
-
-const capitalize = String.prototype.capitalize
-
 module.exports = {
     formattedDate,
     formattedTime,
@@ -409,6 +409,7 @@ module.exports = {
     showData,
     hideData,
     checkUndefined,
+    isJson,
     isTrue,
     isPassword,
     isPhone,
@@ -426,6 +427,5 @@ module.exports = {
     maskCPF,
     maskCPF_CNPJ,
     maskCEP,
-    apiRequest,
-    capitalize
+    apiRequest
 }
