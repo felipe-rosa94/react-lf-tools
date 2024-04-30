@@ -99,7 +99,7 @@ const clearText = text => {
 
 const showData = data => {
     try {
-        if (data) {
+        if (!isEmpty(data)) {
             data = data.split('').reverse().join('')
             try {
                 data = decodeURIComponent(escape(Buffer.from(data, 'base64').toString('utf-8')))
@@ -116,7 +116,7 @@ const showData = data => {
 
 const hideData = data => {
     try {
-        if (data) {
+        if (!isEmpty(data)) {
             data = JSON.stringify(data)
             try {
                 data = Buffer.from(unescape(encodeURIComponent(data))).toString('base64')
@@ -392,6 +392,8 @@ const apiRequest = async ({url, init}) => {
 
     }
 }
+
+hideData(false)
 
 module.exports = {
     formattedDate,
