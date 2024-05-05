@@ -141,6 +141,16 @@ const checkUndefined = (value, valueDefault = '') => {
     return valueDefault
 }
 
+const isDateSame = (date_1, date_2) => {
+    const d1 = new Date(date_1)
+    const d2 = new Date(date_2)
+    return (
+        d1.getDate() === d2.getDate() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getFullYear() === d2.getFullYear()
+    )
+}
+
 const isJson = (string) => {
     try {
         JSON.parse(string)
@@ -411,6 +421,7 @@ module.exports = {
     showData,
     hideData,
     checkUndefined,
+    isDateSame,
     isJson,
     isTrue,
     isPassword,
