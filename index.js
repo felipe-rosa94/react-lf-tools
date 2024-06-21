@@ -403,7 +403,45 @@ const apiRequest = async ({url, init}) => {
     }
 }
 
-hideData(false)
+const copy = text => {
+    try {
+        navigator.clipboard.writeText(text)
+            .then(() => console.log(text))
+            .catch(() => oldMethodCopying(text))
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
+const oldMethodCopying = text => {
+    try {
+        let textArea = document.createElement('textarea')
+        textArea.style.position = 'fixed'
+        textArea.style.top = 0
+        textArea.style.left = 0
+        textArea.style.width = '2em'
+        textArea.style.height = '2em'
+        textArea.style.padding = 0
+        textArea.style.border = 'none'
+        textArea.style.outline = 'none'
+        textArea.style.boxShadow = 'none'
+        textArea.style.background = 'transparent'
+        textArea.value = text
+        document.body.appendChild(textArea)
+        textArea.select()
+        try {
+            let successful = document.execCommand('copy')
+            let msg = successful ? 'bem-sucedido' : 'mal-sucedido'
+            console.log('Comando de cópia de texto foi ' + msg)
+        } catch (err) {
+            console.log('Oops, não foi possível copiar')
+            window.prompt('Copie para a área de transferência: Ctrl+C e tecle Enter', text)
+        }
+        document.body.removeChild(textArea)
+    } catch (e) {
+        console.error(e.message)
+    }
+}
 
 module.exports = {
     formattedDate,
@@ -440,5 +478,6 @@ module.exports = {
     maskCPF,
     maskCPF_CNPJ,
     maskCEP,
-    apiRequest
+    apiRequest,
+    copy
 }
