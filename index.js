@@ -434,7 +434,7 @@ const oldMethodCopying = text => {
             let msg = successful ? 'bem-sucedido' : 'mal-sucedido'
             console.log('Comando de cópia de texto foi ' + msg)
         } catch (err) {
-            console.log('Oops, não foi possível copiar')
+            console.log('Não foi possível copiar')
             window.prompt('Copie para a área de transferência: Ctrl+C e tecle Enter', text)
         }
         document.body.removeChild(textArea)
