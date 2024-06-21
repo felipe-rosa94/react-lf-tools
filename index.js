@@ -406,8 +406,12 @@ const apiRequest = async ({url, init}) => {
 const copy = text => {
     try {
         navigator.clipboard.writeText(text)
-            .then(() => console.log(text))
-            .catch(() => oldMethodCopying(text))
+            .then(() =>{
+                console.log(text)
+            })
+            .catch(() =>{
+                oldMethodCopying(text)
+            })
     } catch (e) {
         console.error(e.message)
     }
