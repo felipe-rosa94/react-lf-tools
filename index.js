@@ -406,10 +406,10 @@ const apiRequest = async ({url, init}) => {
 const copy = text => {
     try {
         navigator.clipboard.writeText(text)
-            .then(() =>{
+            .then(() => {
                 console.log(text)
             })
-            .catch(() =>{
+            .catch(() => {
                 oldMethodCopying(text)
             })
     } catch (e) {
@@ -444,6 +444,15 @@ const oldMethodCopying = text => {
         document.body.removeChild(textArea)
     } catch (e) {
         console.error(e.message)
+    }
+}
+
+const maskCard = number => {
+    number = number.replace(/\D/g, '')
+    if (number.length <= 16) {
+        return number.replace(/(\d{4})(?=\d)/g, '$1 ')
+    } else {
+        return number
     }
 }
 
@@ -482,6 +491,7 @@ module.exports = {
     maskCPF,
     maskCPF_CNPJ,
     maskCEP,
+    maskCard,
     apiRequest,
     copy
 }
