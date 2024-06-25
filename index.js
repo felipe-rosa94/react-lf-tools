@@ -404,11 +404,15 @@ const apiRequest = async ({url, init}) => {
 }
 
 const maskCard = number => {
-    number = number.replace(/\D/g, '')
-    if (number.length <= 16) {
-        return number.replace(/(\d{4})(?=\d)/g, '$1 ')
-    } else {
-        return number
+    try {
+        number = number.replace(/\D/g, '')
+        if (number.length <= 16) {
+            return number.replace(/(\d{4})(?=\d)/g, '$1 ')
+        } else {
+            return number
+        }
+    } catch (e) {
+
     }
 }
 
@@ -449,5 +453,4 @@ module.exports = {
     maskCEP,
     maskCard,
     apiRequest,
-    copy
 }
