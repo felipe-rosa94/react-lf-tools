@@ -403,7 +403,7 @@ const apiRequest = async ({url, init}) => {
     }
 }
 
-const maskCard = number => {
+const maskCard = (number) => {
     try {
         number = number.replace(/\D/g, '')
         if (number.length <= 16) {
