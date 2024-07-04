@@ -412,7 +412,7 @@ const apiRequest = async ({url, init}) => {
     try {
         return await fetch(url, init).then((data) => data.json()).catch((error) => (error))
     } catch (e) {
-
+        console.error(e.message)
     }
 }
 
