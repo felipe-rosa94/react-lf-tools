@@ -416,7 +416,19 @@ const apiRequest = async ({url, init}) => {
     }
 }
 
-const oldMethodCopying = text => {
+const copy = text => {
+    try {
+        return new Promise((resolve) => {
+            navigator.clipboard.writeText(text)
+                .then(() => resolve('Copiado com sucesso!'))
+                .catch(() => oldMethodCopying(text, resolve))
+        })
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
+const oldMethodCopying = (text, resolve) => {
     try {
         let textArea = document.createElement('textarea')
         textArea.style.position = 'fixed'
@@ -433,28 +445,20 @@ const oldMethodCopying = text => {
         document.body.appendChild(textArea)
         textArea.select()
         try {
-            let successful = document.execCommand('copy')
-            let msg = successful ? 'bem-sucedido' : 'mal-sucedido'
-            console.log('Comando de cópia de texto foi ' + msg)
+            const successful = document.execCommand('copy')
+            if (successful)
+                resolve('Copiado com sucesso!')
+            else
+                resolve('Falha ao copiar!')
         } catch (err) {
-            console.log('Não foi possível copiar')
-            window.prompt('Copie para a área de transferência: Ctrl+C e tecle Enter', text)
+            resolve('Falha ao copiar!')
         }
         document.body.removeChild(textArea)
     } catch (e) {
-        console.error(e.message)
+        resolve('Falha ao copiar!')
     }
 }
 
-const copy = text => {
-    try {
-        navigator.clipboard.writeText(text)
-            .then(() => console.log(text))
-            .catch(() => oldMethodCopying(text))
-    } catch (e) {
-        console.error(e.message)
-    }
-}
 
 module.exports = {
     formattedDate,

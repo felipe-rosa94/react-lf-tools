@@ -1,6 +1,6 @@
 {
   "name": "react-lf-tools",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,9 @@
     "valida Senha",
     "valida E-mail"
   ],
-  "author": "Luis Felipe Da Rosa Cardoso",
+  "author": {
+    "name": "Luis Felipe Da Rosa Cardoso",
+    "email": "luisfeliperc1994@gmail.com"
+  },
   "license": "ISC"
 }
