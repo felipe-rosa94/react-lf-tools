@@ -424,7 +424,7 @@ const copy = text => {
                 .catch(() => oldMethodCopying(text, resolve))
         })
     } catch (e) {
-        console.error(e.message)
+        return 'Falha ao copiar!'
     }
 }
 
@@ -459,6 +459,12 @@ const oldMethodCopying = (text, resolve) => {
     }
 }
 
+const hasNinthDigit = (phoneNumber) => {
+    const cleanedNumber = phoneNumber.replace(/\D/g, '')
+    if (cleanedNumber.length === 11 && cleanedNumber.charAt(2) === '9') return true
+    if (cleanedNumber.length === 9 && cleanedNumber.charAt(0) === '9') return true
+    return false
+}
 
 module.exports = {
     formattedDate,
@@ -497,5 +503,6 @@ module.exports = {
     maskCEP,
     maskCard,
     apiRequest,
-    copy
+    copy,
+    hasNinthDigit
 }
