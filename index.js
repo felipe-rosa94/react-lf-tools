@@ -370,6 +370,7 @@ const maskPhone = phone => {
         phone = phone.substring(0, 14)
         return phone
     }
+    return phone
 }
 
 const maskDate = (data, format = '/') => {
@@ -428,6 +429,13 @@ const copy = text => {
     }
 }
 
+const hasNinthDigit = (phoneNumber) => {
+    const cleanedNumber = phoneNumber.replace(/\D/g, '')
+    if (cleanedNumber.length === 11 && cleanedNumber.charAt(2) === '9') return true
+    if (cleanedNumber.length === 9 && cleanedNumber.charAt(0) === '9') return true
+    return false
+}
+
 const oldMethodCopying = (text, resolve) => {
     try {
         let textArea = document.createElement('textarea')
@@ -457,13 +465,6 @@ const oldMethodCopying = (text, resolve) => {
     } catch (e) {
         resolve('Falha ao copiar!')
     }
-}
-
-const hasNinthDigit = (phoneNumber) => {
-    const cleanedNumber = phoneNumber.replace(/\D/g, '')
-    if (cleanedNumber.length === 11 && cleanedNumber.charAt(2) === '9') return true
-    if (cleanedNumber.length === 9 && cleanedNumber.charAt(0) === '9') return true
-    return false
 }
 
 module.exports = {
