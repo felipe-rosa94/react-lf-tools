@@ -436,6 +436,12 @@ const hasNinthDigit = (phoneNumber) => {
     return false
 }
 
+const capitalizeFirstLetter = (sentence) => {
+    return sentence.split(' ').map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    }).join(' ')
+}
+
 const oldMethodCopying = (text, resolve) => {
     try {
         let textArea = document.createElement('textarea')
@@ -505,5 +511,6 @@ module.exports = {
     maskCard,
     apiRequest,
     copy,
-    hasNinthDigit
+    hasNinthDigit,
+    capitalizeFirstLetter
 }
