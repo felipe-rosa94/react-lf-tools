@@ -436,12 +436,6 @@ const hasNinthDigit = (phoneNumber) => {
     return false
 }
 
-const capitalizeFirstLetter = (sentence) => {
-    return sentence.split(' ').map(word => {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    }).join(' ')
-}
-
 const oldMethodCopying = (text, resolve) => {
     try {
         let textArea = document.createElement('textarea')
@@ -471,6 +465,12 @@ const oldMethodCopying = (text, resolve) => {
     } catch (e) {
         resolve('Falha ao copiar!')
     }
+}
+
+const capitalizeFirstLetter = (sentence) => {
+    return sentence.split(' ').map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    }).join(' ')
 }
 
 module.exports = {
