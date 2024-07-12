@@ -12,7 +12,8 @@
     "valida CNPJ",
     "valida Telefone",
     "valida Senha",
-    "valida E-mail"
+    "valida E-mail",
+    ""
   ],
   "author": {
     "name": "Luis Felipe Da Rosa Cardoso",
