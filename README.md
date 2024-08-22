@@ -33,3 +33,9 @@ O pacote npm "react-lf-tools" oferece um conjunto de funções utilitárias otim
 -   `maskCPF` - Cria uma máscara de CPF.
 -   `maskCPF_CNPJ` - Cria uma máscara de CPF e CNPJ.
 -   `maskCEP` - Cria uma máscara de CEP.
+-   `maskCard` - Cria uma máscara de cartão.
+-   `apiRequest` - Faz requisições HTTP.
+-   `copy` - Copia para a área de transferência.
+-   `hasNinthDigit` - Verifica se tem o digito 9 no número de telefone.
+-   `capitalizeFirstLetter` - Capitaliza a primeira letra.
+-   `searchEmJSON` - Converte o campo search da url em JSON.
