@@ -373,6 +373,31 @@ const maskPhone = phone => {
     return phone
 }
 
+const maskInternationalPhone = phone => {
+    try {
+        if (phone !== '') {
+            phone = phone.replace(/\D/g, '')
+            if (phone.startsWith('0')) phone = phone.replace(/^0/, '')
+            if (phone.length === 8) {
+                return phone
+            } else if (phone.length > 11) {
+                if (phone[2] === '0') {
+                    phone = phone.slice(0, 2) + phone.slice(3)
+                }
+                phone = phone.replace(/(\d{2})(\d{2})(\d)/, '$1 $2 $3')
+                phone = phone.substring(0, 15)
+            } else {
+                phone = phone.replace(/(\d{2})(\d)/, '$1 $2')
+                phone = phone.substring(0, 12)
+            }
+            return phone
+        }
+    } catch (e) {
+        console.error(e.message)
+    }
+    return phone
+}
+
 const maskDate = (data, format = '/') => {
     let v = data.replace(/\D/g, '').slice(0, 10)
     if (v.length >= 5) {
@@ -514,6 +539,7 @@ module.exports = {
     isMobile,
     isNumber,
     maskPhone,
+    maskInternationalPhone,
     maskDate,
     maskCPF,
     maskCPF_CNPJ,
