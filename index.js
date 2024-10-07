@@ -395,7 +395,7 @@ const maskInternationalPhone = phone => {
     } catch (e) {
         console.error(e.message)
     }
-    return phone
+    return phone;
 }
 
 const maskDate = (data, format = '/') => {
