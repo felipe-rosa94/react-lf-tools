@@ -498,8 +498,8 @@ const capitalizeFirstLetter = (sentence) => {
     }).join(' ')
 }
 
-const searchEmJSON = search => {
-    let pairs = search.substring(1).split('&'), objeto = {}, pair, i;
+const searchEmJSON = (search, index = 1) => {
+    let pairs = search.substring(index).split('&'), objeto = {}, pair, i;
     for (i in pairs) {
         if (pairs[i] === '') continue
         pair = pairs[i].split('=')
